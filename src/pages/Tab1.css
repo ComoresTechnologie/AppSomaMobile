@@ -1,0 +1,36 @@
+.monHeader{
+    background-color: aqua;
+}
+
+ion-card{
+    background-color: rgb(44, 161, 64);
+}
+
+ion-toolbar{
+    color: red;
+    /* --background: url('assets/img3.png') no-repeat fixed center; */
+}
+
+ion-content{
+    background-color: #930B49;
+}
+
+.header{
+    height: 150px;
+    background-color: #005070;
+    border-bottom-left-radius: 125px;
+    border-bottom-right-radius: 125px;
+    
+}
+
+.image{
+    width: 100px;
+    border-radius: 50px;
+    position: fixed;
+    left: 130px;
+    top: 5px;
+}
+
+.fond-header{
+    background-color: #930B49;
+}

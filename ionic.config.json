@@ -1,0 +1,7 @@
+{
+  "name": "AppSomaMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
