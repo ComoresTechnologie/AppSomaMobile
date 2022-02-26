@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "AppSomaMobile",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
