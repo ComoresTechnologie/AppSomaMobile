@@ -37,6 +37,8 @@ import { read } from 'fs';
 import Tab4 from './pages/Tab4';
 import ClassesTerminale from './pages/terminale/ClassesTerminale';
 import ClassesTroisieme from './pages/troisieme/ClassesTroisieme';
+import Matieres from './pages/matieres/Matieres';
+import Chapitres from './pages/chapitres/Chapitres';
 
 setupIonicReact();
 
@@ -51,6 +53,12 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/tab1/troisieme">
             <ClassesTroisieme />
+          </Route>
+          <Route exact path="/tab1/terminale/niveaux/:identifiant/matieres/:matiere/chapitres">
+            <Chapitres />
+          </Route>
+          <Route exact path="/tab1/terminale/niveaux/:identifiant/matieres">
+            <Matieres />
           </Route>
           <Route exact path="/tab1">
             <Tab1 />
@@ -68,7 +76,7 @@ const App: React.FC = () => (
             <Redirect to="/tab1" />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
+        <IonTabBar slot="bottom" color='tertiary'>
           <IonTabButton tab="tab1" href="/tab1" className='monToolBar'>
             <IonIcon icon={triangle} />
             <IonLabel>Accueil</IonLabel>

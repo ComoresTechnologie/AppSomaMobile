@@ -1,12 +1,13 @@
 import { IonCard, IonCardContent, IonCol, IonContent, IonHeader, IonImg, IonItem, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { getDocs, collection, getFirestore } from 'firebase/firestore';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, JSXElementConstructor, ReactElement, ReactNodeArray, ReactPortal } from 'react';
+import { useParams } from 'react-router';
 // import firebase from 'firebase';
 // import ExploreContainer from '../components/ExploreContainer';
-import './ClassesTerminale.css';
+import './Chapitres.css';
 
-const ClassesTerminale: React.FC = () => {
+const Chapitres: React.FC = () => {
 
   const referencedb = getFirestore();
   const [ressources, setRessources] = useState<Array<any>>([]);
@@ -16,28 +17,34 @@ const ClassesTerminale: React.FC = () => {
     getData();
   }, []);
 
-  
+  interface RouteParams {
+    id: string
+  }
 
+  let {identifiant} = useParams<{identifiant: string}>();
+  let {matiere} = useParams<{matiere: string}>();
   async function getData() {
-    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux"));
+    // let id;
+    
+    
+    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/"+identifiant+"/matieres/physique/chapitres"));
     console.log(querySnapshot);
     setRessources(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
-  
 
   return (
     <IonPage>
 
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Classes Terminale</IonTitle>
+          <IonTitle>Chapitre test</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         {ressources.map(ressource => (
 
           <IonCard key={ressource.id}>
-            <IonItem routerLink={'/tab1/terminale/niveaux/'+ressource.id+'/matieres'} >
+            <IonItem routerLink='/' >
               <IonRow>
                 <IonCol>
                   <IonImg src="assets/images/img3.png"></IonImg>
@@ -45,7 +52,8 @@ const ClassesTerminale: React.FC = () => {
                 <IonCol>
                   <IonCardContent>
                     {/* {ressource.titre == 'Mathématiques'? <IonTitle>data</IonTitle> : null} */}
-                    {ressource.intitule}
+                    {ressource.titre} de test chapitres
+                    
                   </IonCardContent>
                 </IonCol>
               </IonRow>
@@ -58,7 +66,7 @@ const ClassesTerminale: React.FC = () => {
   );
 };
 
-export default ClassesTerminale;
+export default Chapitres;
 function firebaseConfig(firebaseConfig: any) {
   throw new Error('Function not implemented.');
 }
