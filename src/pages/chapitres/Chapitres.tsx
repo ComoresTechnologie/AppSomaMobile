@@ -1,35 +1,69 @@
 import { IonCard, IonCardContent, IonCol, IonContent, IonHeader, IonImg, IonItem, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { getDocs, collection, getFirestore } from 'firebase/firestore';
+import { getDocs, collection, getFirestore, getDocsFromCache } from 'firebase/firestore';
 import { useState, useEffect, JSXElementConstructor, ReactElement, ReactNodeArray, ReactPortal } from 'react';
 import { useParams } from 'react-router';
 // import firebase from 'firebase';
 // import ExploreContainer from '../components/ExploreContainer';
 import './Chapitres.css';
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { async } from '@firebase/util';
 
 const Chapitres: React.FC = () => {
 
+  const storage = getStorage();
+  const spaceRef = ref(storage, 'images/img1.jpg');
+  const downloaded = getDownloadURL(spaceRef);
+
+
+  // Task<Uri> imageURL = storageReference.getDownloadUrl();
   const referencedb = getFirestore();
   const [ressources, setRessources] = useState<Array<any>>([]);
-  const valeur = "frere";
+  const [imagesUrl, setImagesUrl] = useState<any>();
+
+
   useEffect(() => {
-    console.log('hello, voici');
     getData();
+    getImagesDownload();
   }, []);
 
   interface RouteParams {
     id: string
   }
 
-  let {identifiant} = useParams<{identifiant: string}>();
-  let {matiere} = useParams<{matiere: string}>();
+  let { identifiant } = useParams<{ identifiant: string }>();
+  let { matiere } = useParams<{ matiere: string }>();
+
+  let monEssai = "";
+
+  const [email, setEmail] = useState("");
+
+  // const fetchUserEmail = async () => {
+  //   const response = await fetch("/emails");
+  //   const { email } = await response.json();
+  //   setEmail(email);
+  // };
+
+  async function getImagesDownload(){
+    const response = await getDownloadURL(spaceRef);
+    const email = await response;
+    console.log(email);
+    setEmail(email);
+  }
+  
   async function getData() {
-    // let id;
-    
-    
-    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/"+identifiant+"/matieres/physique/chapitres"));
-    console.log(querySnapshot);
+    const querySnapshot = await getDocsFromCache(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres"));
+
     setRessources(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    
+    
+
+    // getDownloadURL(spaceRef).then((url) => {
+    //   // console.log('File available at', url);
+    //   monTest = url;
+    //   // console.log('valeur : ', monTest)
+    // })
+    // console.log('la console dit : ', imagesUrl);
   }
 
   return (
@@ -47,13 +81,15 @@ const Chapitres: React.FC = () => {
             <IonItem routerLink='/' >
               <IonRow>
                 <IonCol>
-                  <IonImg src="assets/images/img3.png"></IonImg>
+                  <IonImg src={email}></IonImg>
+                  {/* <img src={monTest} alt="" /> */}
                 </IonCol>
                 <IonCol>
                   <IonCardContent>
-                    {/* {ressource.titre == 'Mathématiques'? <IonTitle>data</IonTitle> : null} */}
-                    {ressource.titre} de test chapitres
-                    
+
+                    {ressource.titre}
+                    {/* {ressource.img} */}
+
                   </IonCardContent>
                 </IonCol>
               </IonRow>
