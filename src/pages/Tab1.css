@@ -7,7 +7,8 @@ ion-card{
 }
 
 ion-toolbar{
-    color: red;
+    --color: #ffffff;
+    --background: #005070;
     /* --background: url('assets/img3.png') no-repeat fixed center; */
 }
 

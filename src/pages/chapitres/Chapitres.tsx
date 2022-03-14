@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCol, IonContent, IonHeader, IonImg, IonItem, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButtons, IonCard, IonCardContent, IonCol, IonContent, IonHeader, IonImg, IonItem, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { getDocs, collection, getFirestore, getDocsFromCache } from 'firebase/firestore';
 import { useState, useEffect, JSXElementConstructor, ReactElement, ReactNodeArray, ReactPortal } from 'react';
@@ -13,7 +13,7 @@ const Chapitres: React.FC = () => {
 
   const storage = getStorage();
   const spaceRef = ref(storage, 'images/img1.jpg');
-  const downloaded = getDownloadURL(spaceRef);
+  // const downloaded = getDownloadURL(spaceRef);
 
 
   // Task<Uri> imageURL = storageReference.getDownloadUrl();
@@ -38,40 +38,29 @@ const Chapitres: React.FC = () => {
 
   const [email, setEmail] = useState("");
 
-  // const fetchUserEmail = async () => {
-  //   const response = await fetch("/emails");
-  //   const { email } = await response.json();
-  //   setEmail(email);
-  // };
-
-  async function getImagesDownload(){
+  async function getImagesDownload() {
     const response = await getDownloadURL(spaceRef);
     const email = await response;
-    console.log(email);
     setEmail(email);
+    console.log(email);
   }
-  
+
   async function getData() {
-    const querySnapshot = await getDocsFromCache(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres"));
+    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres"));
 
     setRessources(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    
-    
 
-    // getDownloadURL(spaceRef).then((url) => {
-    //   // console.log('File available at', url);
-    //   monTest = url;
-    //   // console.log('valeur : ', monTest)
-    // })
-    // console.log('la console dit : ', imagesUrl);
   }
 
   return (
     <IonPage>
 
-      <IonHeader>
+      <IonHeader color='tertiary'>
         <IonToolbar>
-          <IonTitle>Chapitre test</IonTitle>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="/" />
+        </IonButtons>
+          <IonTitle>Chapitre test {matiere}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -82,13 +71,11 @@ const Chapitres: React.FC = () => {
               <IonRow>
                 <IonCol>
                   <IonImg src={email}></IonImg>
-                  {/* <img src={monTest} alt="" /> */}
                 </IonCol>
                 <IonCol>
                   <IonCardContent>
 
                     {ressource.titre}
-                    {/* {ressource.img} */}
 
                   </IonCardContent>
                 </IonCol>
