@@ -39,6 +39,7 @@ import ClassesTerminale from './pages/terminale/ClassesTerminale';
 import ClassesTroisieme from './pages/troisieme/ClassesTroisieme';
 import Matieres from './pages/matieres/Matieres';
 import Chapitres from './pages/chapitres/Chapitres';
+import Cours from './pages/cours/Cours';
 
 setupIonicReact();
 
@@ -56,6 +57,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/tab1/terminale/niveaux/:identifiant/matieres/:matiere/chapitres">
             <Chapitres />
+          </Route>
+          <Route exact path="/tab1/terminale/niveaux/:identifiant/matieres/:matiere/chapitres/:chapitre/cours">
+            <Cours />
           </Route>
           <Route exact path="/tab1/terminale/niveaux/:identifiant/matieres">
             <Matieres />

@@ -5,11 +5,11 @@ import { useState, useEffect, JSXElementConstructor, ReactElement, ReactNodeArra
 import { useParams } from 'react-router';
 // import firebase from 'firebase';
 // import ExploreContainer from '../components/ExploreContainer';
-import './Chapitres.css';
+import './Cours.css';
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { async } from '@firebase/util';
 
-const Chapitres: React.FC = () => {
+const Cours: React.FC = () => {
 
   const storage = getStorage();
   const spaceRef = ref(storage, 'images/img1.jpg');
@@ -24,7 +24,7 @@ const Chapitres: React.FC = () => {
 
   useEffect(() => {
     getData();
-    getImagesDownload();
+    // getImagesDownload();
   }, []);
 
   interface RouteParams {
@@ -33,6 +33,7 @@ const Chapitres: React.FC = () => {
 
   let { identifiant } = useParams<{ identifiant: string }>();
   let { matiere } = useParams<{ matiere: string }>();
+  let { chapitre } = useParams<{ chapitre: string }>();
 
   let monEssai = "";
 
@@ -47,7 +48,7 @@ const Chapitres: React.FC = () => {
   }
 
   async function getData() {
-    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres"));
+    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres/"+chapitre+"/cours"));
 
     setRessources(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
@@ -58,26 +59,23 @@ const Chapitres: React.FC = () => {
 
       <IonHeader color='tertiary'>
         <IonToolbar>
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/" />
-        </IonButtons>
-          <IonTitle>Chapitre test {matiere}</IonTitle>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/" />
+          </IonButtons>
+          <IonTitle>Cours {matiere}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         {ressources.map(ressource => (
 
           <IonCard key={ressource.id}>
-            <IonItem routerLink={'/tab1/terminale/niveaux/' + identifiant + "/matieres/" + matiere + "/chapitres/"+ressource.id+"/cours"} >
+            <IonItem>
               <IonRow>
-                <IonCol>
-                  <IonImg className='imageIcon' src={ressource.image}></IonImg>
-                </IonCol>
+                
                 <IonCol>
                   <IonCardContent>
-
-                    {ressource.titre}
-
+                    {ressource.intitule}
+                    
                   </IonCardContent>
                 </IonCol>
               </IonRow>
@@ -90,7 +88,7 @@ const Chapitres: React.FC = () => {
   );
 };
 
-export default Chapitres;
+export default Cours;
 function firebaseConfig(firebaseConfig: any) {
   throw new Error('Function not implemented.');
 }
