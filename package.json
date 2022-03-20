@@ -11,6 +11,8 @@
     "@capacitor/status-bar": "1.0.6",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
+    "@react-pdf-viewer/core": "^2.4.1",
+    "@react-pdf-viewer/default-layout": "^3.1.2",
     "@react-pdf-viewer/scroll-mode": "^3.1.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -24,6 +26,8 @@
     "chart.js": "^3.7.0",
     "firebase": "^9.6.6",
     "ionicons": "^5.4.0",
+    "pdf-viewer-reactjs": "^2.2.3",
+    "pdfjs-dist": "^2.6.347",
     "react": "^17.0.1",
     "react-chartjs-2": "^4.0.1",
     "react-dom": "^17.0.1",
@@ -71,7 +75,8 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.3.4",
-    "@types/firebase": "^3.2.1"
+    "@types/firebase": "^3.2.1",
+    "@types/pdf-viewer-reactjs": "^2.2.2"
   },
   "description": "An Ionic project"
 }

@@ -9,6 +9,16 @@ import './Cours.css';
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { async } from '@firebase/util';
 
+// Import the main component
+import { SpecialZoomLevel, Viewer } from '@react-pdf-viewer/core'; // install this library
+// Plugins
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
+// Import the styles
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+// Worker
+import { Worker } from '@react-pdf-viewer/core'; // install this library
+import { url } from 'inspector';
 const Cours: React.FC = () => {
 
   const storage = getStorage();
@@ -48,11 +58,15 @@ const Cours: React.FC = () => {
   }
 
   async function getData() {
-    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres/"+chapitre+"/cours"));
+    const querySnapshot = await getDocs(collection(referencedb, "ressources/terminale/niveaux/" + identifiant + "/matieres/" + matiere + "/chapitres/" + chapitre + "/cours"));
 
     setRessources(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
   }
+
+  const pdfFile = 'https://arxiv.org/pdf/quant-ph/0410100.pdf';
+  // const pdfFile = 'https://firebasestorage.googleapis.com/v0/b/ma-base-dbb70.appspot.com/o/documents%2Fdoc2.pdf?alt=media&token=d5ee9c24-5bca-402a-b9c8-f8de70e29ebb';
+  const [defaultPdfFile] = useState(pdfFile);
 
   return (
     <IonPage>
@@ -71,11 +85,16 @@ const Cours: React.FC = () => {
           <IonCard key={ressource.id}>
             <IonItem>
               <IonRow>
-                
+
                 <IonCol>
                   <IonCardContent>
                     {ressource.intitule}
-                    
+                    <div className='pdf-container'>
+                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                      <Viewer defaultScale={SpecialZoomLevel.PageFit} fileUrl={ressource.document}/>
+                      
+                    </Worker>
+                    </div>
                   </IonCardContent>
                 </IonCol>
               </IonRow>
