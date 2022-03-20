@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, person, square, triangle, umbrellaSharp } from 'ionicons/icons';
+import { bookmark, cart, chatbox, ellipse, home, homeOutline, person, square, triangle, umbrellaSharp } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -82,20 +82,20 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom" color='tertiary'>
           <IonTabButton tab="tab1" href="/tab1" className='monToolBar'>
-            <IonIcon icon={triangle} />
+            <IonIcon icon={home} />
             <IonLabel>Accueil</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Bibliothèque</IonLabel>
+            <IonIcon icon={cart} />
+            <IonLabel>Boutique</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={umbrellaSharp} />
+            <IonIcon icon={bookmark} />
             <IonLabel>Mes livres</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab4" href="/tab1/classesTerminale">
-            <IonIcon icon={person} />
-            <IonLabel>Ma boutique</IonLabel>
+            <IonIcon icon={chatbox} />
+            <IonLabel>Forum</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
