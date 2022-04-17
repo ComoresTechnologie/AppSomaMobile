@@ -81,25 +81,14 @@ const Cours: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         {ressources.map(ressource => (
+          
+          <div key={ressource.id}>
+            <Worker workerUrl="assets/lib/pdf.worker.min.js">
+              <Viewer defaultScale={SpecialZoomLevel.PageFit} fileUrl={ressource.document} />
 
-          <IonCard key={ressource.id}>
-            <IonItem>
-              <IonRow>
-
-                <IonCol>
-                  <IonCardContent>
-                    {ressource.intitule}
-                    <div className='pdf-container'>
-                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                      <Viewer defaultScale={SpecialZoomLevel.PageFit} fileUrl={ressource.document}/>
-                      
-                    </Worker>
-                    </div>
-                  </IonCardContent>
-                </IonCol>
-              </IonRow>
-            </IonItem>
-          </IonCard>
+            </Worker>
+            
+          </div>
 
         ))}
       </IonContent>

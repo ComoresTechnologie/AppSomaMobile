@@ -41,6 +41,9 @@ import Matieres from './pages/matieres/Matieres';
 import Chapitres from './pages/chapitres/Chapitres';
 import Cours from './pages/cours/Cours';
 
+import Secondaire from './pages/secondaires/Secondaire';
+import Cours3 from './pages/secondaires/cours/Cours';
+
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -63,6 +66,12 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/tab1/terminale/niveaux/:identifiant/matieres">
             <Matieres />
+          </Route>
+          <Route exact path="/tab1/troisieme/matieres/:matiere">
+            <Secondaire/>
+          </Route>
+          <Route exact path="/tab1/troisieme/matieres/:matiere/chapitres/:chapitre/cours">
+            <Cours3 />
           </Route>
           <Route exact path="/tab1">
             <Tab1 />

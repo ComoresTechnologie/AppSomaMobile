@@ -2,11 +2,14 @@ import { IonCard, IonCardContent, IonCol, IonContent, IonHeader, IonImg, IonItem
 import { IonReactRouter } from '@ionic/react-router';
 import { getDocs, collection, getFirestore } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 // import firebase from 'firebase';
 // import ExploreContainer from '../components/ExploreContainer';
 import './ClassesTroisieme.css';
 
 const ClassesTroisieme: React.FC = () => {
+
+  let { matiere } = useParams<{ matiere: string }>();
 
   const referencedb = getFirestore();
   const [ressources, setRessources] = useState<Array<any>>([]);
@@ -36,14 +39,14 @@ const ClassesTroisieme: React.FC = () => {
         {ressources.map(ressource => (
 
           <IonCard key={ressource.id}>
-            <IonItem routerLink='/tab1/classesTerminale' >
+            <IonItem routerLink={'/tab1/troisieme/matieres/'+ressource.id} >
               <IonRow>
                 <IonCol>
                   <IonImg src="assets/images/img3.png"></IonImg>
                 </IonCol>
                 <IonCol>
                   <IonCardContent>
-                    {ressource.titre == 'Mathématiques'? <IonTitle>data</IonTitle> : <IonTitle>meta</IonTitle>}
+                    {/* {ressource.titre == 'Mathématiques'? <IonTitle>data</IonTitle> : <IonTitle>meta</IonTitle>} */}
                     {ressource.titre}
                   </IonCardContent>
                 </IonCol>
