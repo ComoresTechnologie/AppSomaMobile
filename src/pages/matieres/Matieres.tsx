@@ -79,7 +79,7 @@ const Matieres: React.FC = () => {
             {ressources.map(ressource => (
               <IonCol size='6' key={ressource.id}>
 
-                <IonCard>
+                <IonCard >
                   <IonCardContent className='fondVignette'>
                   <IonItem color='success' routerLink={'/tab1/terminale/niveaux/' + identifiant + "/matieres/" + ressource.id + "/chapitres"}>
                     {/* <IonRow> */}
